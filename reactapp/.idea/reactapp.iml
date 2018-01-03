@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+    </content>
+    <content url="file://$MODULE_DIR$/node_modules" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="express" level="application" />
+    <orderEntry type="library" name="node" level="application" />
+    <orderEntry type="library" name="React" level="application" />
+    <orderEntry type="library" name="Mongoodb" level="application" />
+    <orderEntry type="library" name="react-redux" level="application" />
+    <orderEntry type="library" name="react-dom" level="application" />
+    <orderEntry type="library" name="react-router-dom-tests.tsx" level="application" />
+    <orderEntry type="library" name="react-router-redux-tests.tsx" level="application" />
+    <orderEntry type="library" name="redux-router" level="application" />
+    <orderEntry type="library" name="reducer" level="application" />
+  </component>
+</module>

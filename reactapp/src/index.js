@@ -13,6 +13,7 @@ import Authroute from "./component/authroute/authroute";
 
 import reducers from './reducers'
 import './config'
+import './index.css'
 
 
 /*对插件进行监控*/

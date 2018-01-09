@@ -2,10 +2,16 @@
 import React from 'react'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
+import {loadData} from '../../redux/user.redux'
+import {connect} from 'react-redux'
 @withRouter
 /*
 * 不是路由组件,只是是一个操作路由的方法
 * */
+@connect(
+	null,
+	{loadData}
+)
 class Authroute extends React.Component {
 	componentDidMount() {
 		const publicList=['/login','/register'];
@@ -18,6 +24,7 @@ class Authroute extends React.Component {
 			if (res.status == 200) {
 				if (res.data.code == 0) {
 					//有登陆信息
+					this.props.loadData(res.data.data);
 				} else {
 					this.props.history.push('/login')
 				}
@@ -31,7 +38,7 @@ class Authroute extends React.Component {
 	}
 
 	render() {
-		return <h1>进行的登录的判断</h1>
+		return null;
 	}
 }
 

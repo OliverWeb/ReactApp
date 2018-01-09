@@ -3,10 +3,12 @@ import Logo from '../../component/logo/logo'
 /*例如UI框架*/
 import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+
 import {register} from "../../redux/user.redux";
 
 @connect(
-	state=>state.user,
+	state => state.user,
 	{register}
 )
 class Register extends React.Component {
@@ -18,24 +20,28 @@ class Register extends React.Component {
 			repeatpwd: '',
 			type: 'genius'    //boos
 		};
-		this.handleRegiter=this.handleRegiter.bind(this);  //这种的绑定的效果优于箭头的中的
+		this.handleRegiter = this.handleRegiter.bind(this);  //这种的绑定的效果优于箭头的中的
 	}
-	handleRegiter(){
+
+	handleRegiter() {
 		this.props.register(this.state);
 		console.log(this.state);
 	}
+
 	handChange(key, val) {
 		this.setState({
 			[key]: val      /*这里[]防止变成支付穿*/
 		});
 	}
+
 	render() {
 		const RadioItem = Radio.RadioItem;
 		return (
 			<div>
+				{this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
 				<Logo/>
 				<h2>注册页</h2>
-				{this.props.msg?<p className='error-msg'>{this.props.msg}</p>:null}
+				{this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
 				<List>
 					<InputItem onChange={v => this.handChange('user', v)}>用户</InputItem>
 					<InputItem type='password' onChange={v => this.handChange('pwd', v)}>密码</InputItem>

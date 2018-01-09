@@ -1,6 +1,6 @@
 const  ADD_GUN="加机关枪";
 const  REMOVE_GUN='减机关枪';
-//reducer
+//reducer,用于 createStore() store.dispatch(counter);
 export function counter(state=0,action) {
 	switch(action.type){
 		case ADD_GUN:
@@ -12,6 +12,8 @@ export function counter(state=0,action) {
 	}
 }
 
+
+//action.createStore 用于的couter=>用户dispatch
 export function addGun(){
 	return {type:ADD_GUN}
 }

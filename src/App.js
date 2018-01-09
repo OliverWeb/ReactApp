@@ -8,11 +8,7 @@ import {addGun, removeGun, addGunAsync} from './index.redux'
 	//用的发个嫩啊放到props,自动进行dispatch
 	{addGun, removeGun, addGunAsync}
 )
-
 class App extends React.Component {
-	// constructor(props){
-	// 	super(props)
-	// }
 	render() {
 		return (
 			<div>

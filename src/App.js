@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux'   //负责从外部获取组件需要的参数,用户连接用的
 import {addGun, removeGun, addGunAsync} from './index.redux'
 
 @connect(
 	//要什么属性放到props,
 	state => ({num: state.count}),
-	//用的发个嫩啊放到props,自动进行dispatch
+	//用的方法放到props,自动进行dispatch,action可以进行解决
 	{addGun, removeGun, addGunAsync}
 )
 class App extends React.Component {

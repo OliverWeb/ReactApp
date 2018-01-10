@@ -21,9 +21,10 @@ export function removeGun(){
 	return {type:REMOVE_GUN}
 }
 export function addGunAsync() {
-	return (dispatch)=>{
+	//利用applyMiddleware开启thunk中间件,这里返回必须是一个函数
+	return dispatch=>{
 			setTimeout(()=>{
-				dispatch(addGun())
+				dispatch(addGun())    //dispatch(action)  执行的函数的的时候通过dispatch
 			},2000);
 	}
 }

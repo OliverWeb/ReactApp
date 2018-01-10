@@ -1,6 +1,10 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import {Provider} from 'react-redux'    //进行连接react和redux,subscribe弃用
+/*
+* react-router-dom
+*
+* */
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
 import thunk from 'redux-thunk'

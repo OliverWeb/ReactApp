@@ -17,12 +17,12 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {login, getUserData} from './Auth.redux'
-import axios from 'axios'
-
+// import axios from 'axios'
 //装饰器进行监控的login
 
 /*
-* 连个reducer,
+* 连个reducer,和action操作的函数,获取的通过this.props.进行获取想要的数据
+*
 * */
 @connect(
 	state => state.auth,
@@ -36,6 +36,9 @@ class Auth extends React.Component {
 			}
 		}*/
 	componentDidMount() {
+		/*
+		* 单独的是axios使用,reducer 通过this.props.获取数据 /setState的使用通过this.state进行获取
+		* */
 		/*axios.get('/data')
 			.then(res=>{
 				if(res.status==200){
@@ -43,6 +46,7 @@ class Auth extends React.Component {
 				}
 				console.log(res)
 			})*/
+		/*这里进行做异步请求的action,dispatch进行异步处理,axios进行拦截请求*/
 		this.props.getUserData();
 	}
 

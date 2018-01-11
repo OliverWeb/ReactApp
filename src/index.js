@@ -42,6 +42,7 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import reducers from './reducers'
 import Dashboard from './Dashboard'
 import Auth from './Auth'
+/*利用config.js文件,对axios.interceptors进行拦截请求,处理公共的loading事件*/
 import './config'
 import 'antd-mobile/dist/antd-mobile.css';
 /*对插件进行监控*/

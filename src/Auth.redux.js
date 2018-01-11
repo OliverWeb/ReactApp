@@ -5,9 +5,9 @@
 * createStore(reducer) reducer的操作的函数的---逻辑处理
 * 以及dispatch(action)
 *用于存放数据供其他的木偶组件进行调用
-*
+*axios请求放在axth.redux.js 做数据处理
 * */
-
+/*对请求进行统一拦截处理*/
 import axios from  'axios'
 /*
 * 定义变量
@@ -47,6 +47,10 @@ export function auth(state = initState, action) {
 
 //action  creator  dispatch(action)
 export function getUserData(){
+	/*这里返回一个异步对象,使用reducer进行修改
+	* 利用dispatch用来通知数据的修改
+	* 也就是手动进行提交数据
+	* */
 	return dispatch=>{
 		axios.get('/data')
 			.then(res=>{
@@ -56,6 +60,9 @@ export function getUserData(){
 			})
 	}
 }
+
+
+
 export function userDate(data) {
 	return {type:USER_DATA,payload:data}
 }

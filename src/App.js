@@ -1,9 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux'   //负责从外部获取组件需要的参数,用户连接用的
+//负责从外部获取组件需要的参数,用户连接用的
+import {connect} from 'react-redux'
 import {addGun, removeGun, addGunAsync} from './index.redux'
 
 @connect(
-	//要什么属性放到props,
+	//要什么属性放到props,reducer.js 利用combineReducers将多个组件合并的
 	state => ({num: state.count}),
 	//用的方法放到props,自动进行dispatch,action可以进行解决
 	{addGun, removeGun, addGunAsync}

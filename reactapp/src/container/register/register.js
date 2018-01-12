@@ -1,3 +1,10 @@
+/*
+* 1.class 组件export default暴露出去.
+* 2.业务组件:只呈现页面的View,利用@connect装饰器进行展现数据,
+*
+*
+* */
+
 import React from 'react'
 import Logo from '../../component/logo/logo'
 /*例如UI框架*/
@@ -18,7 +25,7 @@ class Register extends React.Component {
 			user: '',
 			pwd: '',
 			repeatpwd: '',
-			type: 'genius'    //boos
+			type: 'genius'    //boos  内部数据用zou redux
 		};
 		this.handleRegiter = this.handleRegiter.bind(this);  //这种的绑定的效果优于箭头的中的
 	}
@@ -46,6 +53,7 @@ class Register extends React.Component {
 					<InputItem onChange={v => this.handChange('user', v)}>用户</InputItem>
 					<InputItem type='password' onChange={v => this.handChange('pwd', v)}>密码</InputItem>
 					<InputItem type='password' onChange={v => this.handChange('repeatpwd', v)}>确认密码</InputItem>
+					{/*设置处理初始状态*/}
 					<RadioItem checked={this.state.type == 'genius'} onChange={v => this.handChange('type', 'genius')}>
 						牛人
 					</RadioItem>

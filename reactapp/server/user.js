@@ -1,6 +1,11 @@
+/*
+*1.express传入中间件,把中间件抽离一个单独文件,和use相关的进行拆分  保持入口文件的精简
+*2.利用express.Router进行挂载
+*3.中间件
+* */
 const express = require('express');
-const utils = require('utility');
 const Router = express.Router();
+const utils = require('utility');
 const model = require('./model');
 const User = model.getModel('user');
 const _fileter={'pwd':0,'_v':0};
@@ -46,6 +51,11 @@ Router.post('/register', function (req, res) {
 		});*/
 	});
 });
+/*
+*1.获取用户的信息接口
+*
+*
+* */
 Router.get('/info', function (req, res) {
 	//读取的时候的在request
 	const {userid} = req.cookies;
@@ -67,5 +77,5 @@ function md5Pwd(pwd) {
 	const salt = 'welcome_come_china';
 	return utils.md5(utils.md5(pwd + salt));
 }
-
+//暴露和use相关的接口
 module.exports = Router;

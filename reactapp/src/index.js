@@ -1,4 +1,13 @@
-  import React from 'react'
+/*
+* 1.index.js入口文件利用的Provider传store进行对store中的数据进行处理,利用BrowserRouter包裹跳转路由Route进行处理路由的跳转
+*2.将reducer.js中的combineReducers({reducer})合并后暴露给index.js----给予createStore(reducer进行使用);
+*3.使用compose是为了结合thunk和window.devToolsExtension,利用插件devToolsExtension进行,进行实时查看state这里compose是一个组合函数
+*4.Route中的防止path="/"路径进行匹配多个的情况,添加属性exact进行严格匹配,
+*
+*
+* */
+
+import React from 'react'
 import ReactDom from 'react-dom'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
@@ -10,6 +19,7 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import Authroute from "./component/authroute/authroute";
 /*引入文件end*/
+
 
 import reducers from './reducers'
 import './config'

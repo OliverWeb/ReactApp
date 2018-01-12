@@ -1,3 +1,9 @@
+/*
+* 1.Logo公共组件
+* 2.图片引用,要给定变量名
+* 3.
+* */
+
 import React from 'react'
 import logoImg from './job.png'
 import './logo.css'

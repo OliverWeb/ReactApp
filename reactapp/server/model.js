@@ -1,5 +1,5 @@
 /*
-* 操作数据库 ,mongodb
+* 操作数据库 ,模型概念,mongodb
 * */
 const mongoose = require('mongoose');
 const DB_URL = 'mongodb://localhost:27017/imooc-chat';

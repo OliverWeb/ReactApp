@@ -12,7 +12,7 @@ import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {login} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
-
+/*这里只要user里的字段*/
 @connect(
 	state => state.user,
 	{login}
@@ -45,7 +45,8 @@ class Login extends React.Component {
 		this.props.history.push('/register')
 	}
 
-	handleLogin() {
+	/*点击登录,这里要将数据传送到 auth.redux.js 进行认证处理*/
+	handleLogin(){
 		this.props.login(this.state);
 	}
 	/*

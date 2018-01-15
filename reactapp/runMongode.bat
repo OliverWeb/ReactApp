@@ -1,1 +1,1 @@
-start mongod --dbpath=D:\data\db
+mongod -dbpath "D:\data\db"

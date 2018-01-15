@@ -2,7 +2,6 @@
 * 1.class 组件export default暴露出去.
 * 2.业务组件:只呈现页面的View,利用@connect装饰器进行展现数据,
 *
-*
 * */
 
 import React from 'react'
@@ -10,10 +9,11 @@ import Logo from '../../component/logo/logo'
 /*例如UI框架*/
 import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
+/*利用路由进行跳转*/
 import {Redirect} from 'react-router-dom'
 
 import {register} from "../../redux/user.redux";
-
+/*state.reducer 和action进行监控*/
 @connect(
 	state => state.user,
 	{register}
@@ -21,6 +21,10 @@ import {register} from "../../redux/user.redux";
 class Register extends React.Component {
 	constructor(props) {
 		super(props);
+		/*设置初始状态的数据*/
+		/*
+		* 将用户的操作的内容存储在state里面
+		* */
 		this.state = {
 			user: '',
 			pwd: '',
@@ -29,15 +33,18 @@ class Register extends React.Component {
 		};
 		this.handleRegiter = this.handleRegiter.bind(this);  //这种的绑定的效果优于箭头的中的
 	}
-
+   /*将数据传入 register dispatch(action)进行 引入
+   * 利用user.redux.js中的 action与reducer
+   * */
 	handleRegiter() {
 		this.props.register(this.state);
-		console.log(this.state);
 	}
-
+	/*
+	* 输入的时候进行设置的状态值
+	* */
 	handChange(key, val) {
 		this.setState({
-			[key]: val      /*这里[]防止变成支付穿*/
+			[key]: val      /*这里[]防止变成字符串*/
 		});
 	}
 

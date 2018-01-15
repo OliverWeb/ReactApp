@@ -6,7 +6,6 @@
 *
 *
 * */
-
 import React from 'react'
 import ReactDom from 'react-dom'
 import {createStore, applyMiddleware, compose} from 'redux'
@@ -18,6 +17,7 @@ import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import Authroute from "./component/authroute/authroute";
+import BoosInfo from './container/boosinfo/boosinfo';
 /*引入文件end*/
 
 
@@ -43,7 +43,7 @@ ReactDom.render(
 			<div>
 				{/*检测路由,获取用户信息,并做简单的跳转*/}
 				<Authroute></Authroute>
-				<Route path='/boss' component={Boos}></Route>
+				<Route path='/bossinfo' component={BoosInfo}></Route>
 				<Route path='/login' component={Login}/>
 				<Route path='/register' component={Register}/>
 			</div>

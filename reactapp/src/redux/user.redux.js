@@ -6,9 +6,8 @@
   * */
 import axios from 'axios';
 import {getRedirectPath} from '../util'
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+const AUTH_SUCESS='AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
-const LOGIN_SUCCESS='LOGIN_SUCCESS';
 /*这里只做数据*/
 const LOAD_DATA='LOAD_DATA';
 /*
@@ -19,7 +18,6 @@ const LOAD_DATA='LOAD_DATA';
 * */
 const initState = {
 	redirectTo:'',
-	isAuth: 'false',
 	msg: '',
 	type: ''
 };
@@ -29,10 +27,8 @@ const initState = {
 export function user(state = initState, action) {
 
 	switch (action.type) {
-		case REGISTER_SUCCESS:
-			return {...state,msg:'',redirectTo:getRedirectPath(action.payload),isAuth:true,...action.payload};
-		case LOGIN_SUCCESS:
-			return {...state,msg:'',redirectTo:getRedirectPath(action.payload),isAuth:true,...action.payload};
+		case AUTH_SUCESS:
+			return {...state,msg:'',redirectTo:getRedirectPath(action.payload),...action.payload};
 		case LOAD_DATA:
 			return {...state,...action.payload};
 		case ERROR_MSG:
@@ -46,11 +42,8 @@ export function user(state = initState, action) {
 *负载变量进行书写
 * payload:load进行书写
 * */
-function registerSuccess(data) {
-	return {type:REGISTER_SUCCESS,payload:data}
-}
-function loginSuccess(data){
-	return {type:LOGIN_SUCCESS,payload:data}
+function authSuccess(data) {
+	return {type:AUTH_SUCESS,payload:data}
 }
 
 export function loadData(userinfo) {
@@ -64,7 +57,7 @@ export function login({user,pwd}){
 	return dispatch=>{
 		axios.post('/user/login',{user,pwd}).then(res=>{
 			if(res.status===200&&res.data.code===0){
-				dispatch(loginSuccess(res.data.data))
+				dispatch(authSuccess(res.data.data))
 			}else{
 				dispatch(errorMsg((res.data.msg)));
 			}
@@ -74,7 +67,22 @@ export function login({user,pwd}){
 function errorMsg(msg) {
 	return {msg: msg, type: ERROR_MSG}
 }
-
+/*
+*
+* 进行异步请求的时候利用高阶组件进行的dispatch进行处理
+* */
+export function update(data){
+	return dispatch=>{
+		axios.post('/user/update',data)
+			.then(res=>{
+				if(res.status===200&&res.data.code===0){
+					dispatch(authSuccess(res.data.data));
+				}else{
+					dispatch(errorMsg(res.data.msg));
+				}
+			})
+	}
+}
 /*
 * 用户操作的行为
 * 利用{}对传过来的数组进行解耦的操作,
@@ -94,7 +102,7 @@ export function register({user, pwd, repeatpwd, type}) {
 	return dispatch => {
 		axios.post('/user/register', {user, pwd, type}).then(res => {
 			if (res.status == 200 && res.data.code === 0) {
-				dispatch(registerSuccess({user, pwd, type}))
+				dispatch(authSuccess({user, pwd, type}))
 			} else {
 				dispatch(errorMsg(res.data.msg))
 			}

@@ -43,7 +43,7 @@ ReactDom.render(
 			<div>
 				{/*检测路由,获取用户信息,并做简单的跳转*/}
 				<Authroute></Authroute>
-				<Route path='/bossinfo' component={BoosInfo}></Route>
+				<Route path='/boosinfo' component={BoosInfo}></Route>
 				<Route path='/login' component={Login}/>
 				<Route path='/register' component={Register}/>
 			</div>

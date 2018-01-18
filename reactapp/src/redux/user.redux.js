@@ -6,7 +6,7 @@
   * */
 import axios from 'axios';
 import {getRedirectPath} from '../util'
-const AUTH_SUCESS='AUTH_SUCCESS';
+const AUTH_SUCCESS='AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 /*这里只做数据*/
 const LOAD_DATA='LOAD_DATA';
@@ -25,9 +25,9 @@ const initState = {
 
 /*action就是返回的对象*/
 export function user(state = initState, action) {
-
+	console.log(action.payload);
 	switch (action.type) {
-		case AUTH_SUCESS:
+		case AUTH_SUCCESS:
 			return {...state,msg:'',redirectTo:getRedirectPath(action.payload),...action.payload};
 		case LOAD_DATA:
 			return {...state,...action.payload};
@@ -42,8 +42,10 @@ export function user(state = initState, action) {
 *负载变量进行书写
 * payload:load进行书写
 * */
-function authSuccess(data) {
-	return {type:AUTH_SUCESS,payload:data}
+function authSuccess(obj) {
+	/*属性扩展符进行过滤掉,去掉字段*/
+	const {pwd,...data}=obj;
+	return {type:AUTH_SUCCESS,payload:data}
 }
 
 export function loadData(userinfo) {
@@ -75,7 +77,9 @@ export function update(data){
 	return dispatch=>{
 		axios.post('/user/update',data)
 			.then(res=>{
+				console.log(res);
 				if(res.status===200&&res.data.code===0){
+					console.log(res.data.data);
 					dispatch(authSuccess(res.data.data));
 				}else{
 					dispatch(errorMsg(res.data.msg));

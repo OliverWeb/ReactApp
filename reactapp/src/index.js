@@ -18,6 +18,7 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import Authroute from "./component/authroute/authroute";
 import BoosInfo from './container/boosinfo/boosinfo';
+import GeniusInfo from './container/geniusinfo/geniusinfo';
 /*引入文件end*/
 
 
@@ -43,7 +44,8 @@ ReactDom.render(
 			<div>
 				{/*检测路由,获取用户信息,并做简单的跳转*/}
 				<Authroute></Authroute>
-				<Route path='/boosinfo' component={BoosInfo}></Route>
+				<Route path='/boosinfo' component={BoosInfo}/>
+				<Route path='/geniusinfo' component={GeniusInfo}/>
 				<Route path='/login' component={Login}/>
 				<Route path='/register' component={Register}/>
 			</div>

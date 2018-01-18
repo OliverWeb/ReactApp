@@ -29,6 +29,28 @@ Router.get('/list', function (req, res) {
 		return res.json(doc)
 	});
 });
+
+/*
+*
+* 进行完善信息的处理
+* */
+Router.post('/update',function(req,res){
+	const userid=req.cookies.userid;
+	/*判断是否存在cookie*/
+	if(!userid){
+		return res.json({code:1});
+	}
+	const body=req.body;
+	User.findByIdAndUpdate(userid,body,function(err,doc){
+		/*node里面没有添加es6的语法*/
+		const data=Object.assign({},{
+			user:doc.user,
+			type:doc.type
+		},body);
+		return res.json({code:0,data});
+	});
+
+});
 /*处理登录页*/
 Router.post('/login', function (req, res) {
 	const {user, pwd} = req.body;
@@ -88,7 +110,6 @@ Router.get('/info', function (req, res) {
 	*读cookie是req.cookies,进行读取
 	* res.cookies是进行写cookies
 	*/
-
 	const {userid} = req.cookies;
 	/*
 	* findByid 或者是findOne(),这里放第一个传入的参数

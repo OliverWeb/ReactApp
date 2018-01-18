@@ -4,17 +4,17 @@
 * 对跳转进行处理如何跳转
 * */
 
-export function getRedirectPath({type,avatar}) {
+export function getRedirectPath({type, avatar}) {
 	// 根据用户信息获取用户跳转地址
 	// user.type  /boss /genius
 	// user.avatar //bossinfo /geniusinfo
-	console.log(type);
-	let url = (type == 'boos') ? 'boos' : 'genius';
+
+	let url = (type == 'boos') ? '/boos' : '/genius';
 	/*
 	* 进行判断是否进行完善信息
 	* */
-	if(!avatar){
-		url+='info'
+	if (!avatar) {
+		url += 'info'
 	}
 	/*返回boosinfo  或者是geniusinfo*/
 	return url;

@@ -26,7 +26,7 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 	state => state.user,
 	{update}
 )
-class Boosinfo extends React.Component {
+class GeniusInfo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -46,12 +46,13 @@ class Boosinfo extends React.Component {
 	render() {
 		const path = this.props.location.pathname;
 		const redirect = this.props.redirectTo;
-
+		console.log(path);
+		console.log(redirect);
 		return (
 			<div>
 				{/*这里处理进行跳转*/}
 				{redirect && redirect !== path ? <Redirect to={this.props.redirectTo}/> : null}
-				<NavBar mode="dark">Boss信息信息列表</NavBar>
+				<NavBar mode="dark">牛人完善信息</NavBar>
 				<AvatarSelector
 					selectAvatar={(imgName) => {
 						this.setState({
@@ -59,10 +60,8 @@ class Boosinfo extends React.Component {
 						})
 					}}
 				/>
-				<InputItem onChange={(v) => this.onChange('title', v)}>招聘职位：</InputItem>
-				<InputItem onChange={(v) => this.onChange('company', v)}>公司名称：</InputItem>
-				<InputItem onChange={(v) => this.onChange('money', v)}>职位薪资：</InputItem>
-				<TextareaItem rows={2} count={100} title="职位要求：" autoHeight onChange={(v) => this.onChange('desc', v)}/>
+				<InputItem onChange={(v) => this.onChange('title', v)}>求职职位：</InputItem>
+				<TextareaItem rows={2} count={100} title="个人简介：" autoHeight onChange={(v) => this.onChange('desc', v)}/>
 				<Button
 					onClick={() => {
 						/*这里的方法是redux给的*/
@@ -74,4 +73,4 @@ class Boosinfo extends React.Component {
 	}
 }
 
-export default Boosinfo
+export default GeniusInfo

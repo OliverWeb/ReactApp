@@ -3,8 +3,14 @@
 * */
 import React from 'react'
 import {Grid,List} from 'antd-mobile'
-
+/*
+* 属性传递的类型校验,属性检测,类型进行检测
+* */
+import PropTypes from 'prop-types'
 class AvatarSelector extends React.Component {
+	static propTypes={
+		selectAvatar:PropTypes.func.isRequired
+	};
 	constructor(props){
 		super(props);
 		this.state={};
@@ -32,6 +38,7 @@ class AvatarSelector extends React.Component {
 						data={avatarList}
 						onClick={ele => {
 							this.setState(ele);
+							/*属性验证库proTypes16版抽出,徐手动进行安装*/
 							this.props.selectAvatar(ele.text);
 						}}
 					/>

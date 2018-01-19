@@ -73,6 +73,8 @@ class Register extends React.Component {
 		)
 	}
 }
-
 /*暴露出去*/
 export default Register
+
+
+

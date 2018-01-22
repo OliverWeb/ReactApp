@@ -2,6 +2,8 @@
 *1.express传入中间件,把中间件抽离一个单独文件,和use相关的进行拆分  保持入口文件的精简
 *2.利用express.Router进行挂载
 *3.中间件
+* post 的参数利用body进行获取,
+* get 参数利用query进行获取
 * */
 const express = require('express');
 const Router = express.Router();
@@ -25,8 +27,9 @@ const _fileter={'pwd':0,'_v':0};
 * */
 Router.get('/list', function (req, res) {
 	// User.remove({},function (err,doc) {});
-	User.find({}, function (err, doc) {
-		return res.json(doc)
+	const {type}=req.query;
+	User.find({type}, function (err, doc) {
+		return res.json({code:0,data:doc})
 	});
 });
 

@@ -3,6 +3,8 @@
 *  
 * 2.如果没有的话,放回一个空的{}
 * */
-import  {combineReducers} from 'redux'
+import {combineReducers} from 'redux'
 import {user} from './redux/user.redux'
-export default combineReducers({user})
+import {chartuser} from './redux/chartuser.redux'
+
+export default combineReducers({user, chartuser})

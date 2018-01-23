@@ -10,6 +10,8 @@ const AUTH_SUCCESS='AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 /*这里只做数据*/
 const LOAD_DATA='LOAD_DATA';
+const LOGOUT='LOGOUT';
+
 /*
 * 用户的处理状态
 * isAuth进行判断是否进行登录
@@ -32,6 +34,8 @@ export function user(state = initState, action) {
 			return {...state,...action.payload};
 		case ERROR_MSG:
 			return {...state,isAuth:false,msg:action.msg};
+		case LOGOUT:
+			return {...initState,redirectTo:'/login'};
 		default:
 			return state
 	}
@@ -67,6 +71,10 @@ export function login({user,pwd}){
 }
 function errorMsg(msg) {
 	return {msg: msg, type: ERROR_MSG}
+}
+/*清空redux数据,这里没有请求数据,只需要进行返回type类型就可以了*/
+export function logoutSubmit(){
+	return {type:LOGOUT}
 }
 /*
 *

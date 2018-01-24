@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {Result, List, WhiteSpace, WingBlank, Button, Modal} from 'antd-mobile'
 import browserCookie from 'browser-cookies'
 import {logoutSubmit} from '../../redux/user.redux'
+import {Redirect} from 'react-router-dom'
 
 const myImg = src => <img style={{width: 50}} src={src} className="spe am-icon am-icon-md" alt=""/>;
 
@@ -24,11 +25,13 @@ class User extends React.Component {
 		const alert = Modal.alert;
 		alert('注销', '确认退出登录吗???', [
 			{text: '取消', onPress: () => console.log('cancel')},
-			{text: '确认', onPress: () => {
+			{
+				text: '确认', onPress: () => {
 					browserCookie.erase('userid');
 					/*清楚readux的数据*/
 					this.props.logoutSubmit()
-				}},
+				}
+			},
 		])
 
 
@@ -58,9 +61,8 @@ class User extends React.Component {
 					<WingBlank>
 						<Button type="warning" onClick={this.logout}>退出登录</Button>
 					</WingBlank>
-
 				</div>)
-			: null
+			: <Redirect to={props.redirectTo}/>
 	}
 }
 

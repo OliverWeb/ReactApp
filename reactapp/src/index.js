@@ -20,9 +20,8 @@ import Authroute from "./component/authroute/authroute";
 import BoosInfo from './container/boosinfo/boosinfo';
 import GeniusInfo from './container/geniusinfo/geniusinfo';
 import Dashboard from './component/dashboard/dashboard'
+import Chat from './component/chat/chat'
 /*引入文件end*/
-
-
 import reducers from './reducers'
 import './config'
 import './index.css'
@@ -58,6 +57,7 @@ ReactDom.render(
 					<Route path='/geniusinfo' component={GeniusInfo}/>
 					<Route path='/login' component={Login}/>
 					<Route path='/register' component={Register}/>
+					<Route path='/chat/:user' component={Chat}/>
 					<Route component={Dashboard}/>
 				</Switch>
 			</div>

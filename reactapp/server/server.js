@@ -12,12 +12,43 @@ const express = require('express');
 * 2.这里引入两个中间件进行处理body-parser, cookie-parser
 *
 * */
-const bodyParser=require('body-parser');
-const cookieParser=require('cookie-parser');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+
+
+const model = require('./model');
+const Chat = model.getModel('chat');
+
+
+/**
+ * 双向数据进行传递数据
+ * socket.io和http进行配合
+ *
+ * **/
+const app = express();
+const server = require('http').Server(app);
+/*
+* 仅仅是是为了的socket.io监听端口的这里的socket.io就可以
+* */
+const io = require('socket.io')(server);
+/*这里的io属于全局请求,下面的socket 属于这一次的请求*/
+io.on('connection', function (socket) {
+	//这里socket就是这次链接的打印的socket
+	socket.on('sendmsg', function (data) {
+		/*将这次事件广播到全局*/
+		// io.emit('recvmsg',data);
+		const {from, to, msg} = data;
+		const chatid=[from,to].sort().join('_');
+		Chat.create({chatid,from,to,content:msg},function(err,doc){
+			io.emit('recvmsg',Object.assign({},doc._doc));
+		});
+	});
+});
 
 //将暴露接口返回数据进行引入
-const userRouter=require('./user');
-const app=express();
+const userRouter = require('./user');
+
 /*
 *解析cookie中的json
 *解析post过来的json
@@ -33,9 +64,9 @@ app.use(bodyParser.json());
 *
 * 这里的子路由是由userRouter进行定义的
 * */
-app.use('/user',userRouter);
+app.use('/user', userRouter);
 
-app.listen(9093, function () {
+server.listen(9093, function () {
 	console.log(`端口号是:9093`);
 });
 

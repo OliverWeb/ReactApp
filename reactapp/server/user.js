@@ -16,6 +16,7 @@ const utils = require('utility');
 * */
 const model = require('./model');
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 
 /*
 * 内部使用,进行屏蔽内容信息,防止暴露
@@ -32,7 +33,15 @@ Router.get('/list', function (req, res) {
 		return res.json({code:0,data:doc})
 	});
 });
-
+Router.get('/getmsglist',function (req,res) {
+	// const user=req.cookie.user;
+	//'$or':[{from:user,to:user}]
+	Chat.find({},function(err,doc){
+		if(!err){
+			return res.json({code:0,msgs:doc});
+		}
+	});
+});
 /*
 *
 * 进行完善信息的处理

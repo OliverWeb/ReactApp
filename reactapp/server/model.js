@@ -1,6 +1,6 @@
 /*
 * 操作数据库 ,模型概念,mongodb
-*
+* 这里是将数据,进行存入数据的中,入库
 *实现mongoose库
 * */
 const mongoose = require('mongoose');
@@ -25,7 +25,14 @@ const models = {
 		'company': {'type': String},
 		'money': {'type': String}
 	},
-	chat: {}
+	chat: {
+		'chatid':{'type':String,'require':true},
+		'from':{'type':String,'require':true},
+		'to':{'type':String,'require':true},
+		'read':{'type':Boolean,'default' :false},
+		'content':{'type':String,'require':true,'default':''},
+		'create_time':{'type':Number,'default':new Date().getTime()}
+	}
 };
 /*
 * 对model以key名字进行的注册*/

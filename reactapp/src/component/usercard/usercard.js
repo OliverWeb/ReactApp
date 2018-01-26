@@ -12,7 +12,7 @@ class UserCard extends React.Component {
 	};
 	handleClick(v){
 		/*跳转需要利用Withrouter*/
-		this.props.history.push(`/chat/${v.user}`);
+		this.props.history.push(`/chat/${v._id}`);
 	}
 	render() {
 		const Header = Card.Header;

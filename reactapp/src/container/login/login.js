@@ -101,7 +101,6 @@ class Login extends React.Component {
 		* route4特有的
 		* */
 	register() {
-		console.log(this.props);
 		this.props.history.push('/register')
 	}
 

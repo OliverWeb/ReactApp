@@ -21,52 +21,62 @@ const Chat = model.getModel('chat');
 /*
 * 内部使用,进行屏蔽内容信息,防止暴露
 * */
-const _fileter={'pwd':0,'_v':0};
+const _fileter = {'pwd': 0, '_v': 0};
 /*
 * 1.使用路由对象进行挂载Router.get,发囊
 *
 * */
 Router.get('/list', function (req, res) {
 	// User.remove({},function (err,doc) {});
-	const {type}=req.query;
+	const {type} = req.query;
 	User.find({type}, function (err, doc) {
-		return res.json({code:0,data:doc})
+		return res.json({code: 0, data: doc})
 	});
 });
-Router.get('/getmsglist',function (req,res) {
-	// const user=req.cookie.user;
-	//'$or':[{from:user,to:user}]
-	Chat.find({},function(err,doc){
-		if(!err){
-			return res.json({code:0,msgs:doc});
-		}
+Router.get('/getmsglist', function (req, res) {
+	const user = req.cookies.userid;
+	User.find({}, function (e, userdoc) {
+		let users = {};
+		userdoc.forEach(v => {
+			users[v._id] = {name: v.user, avatar: v.avatar}
+		});
+		/*
+		* 过滤条件使用$or,from,to:发送出去的信息,和发送给我的信息都查出来
+		* */
+		Chat.find({'$or':[{from:user,to:user}]}, function (err, doc) {
+			if (!err) {
+				return res.json({code: 0, msgs: doc,users:users});
+			}
+		});
 	});
+	//'$or':[{from:user,to:user}]
+
 });
 /*
 *
 * 进行完善信息的处理
 * */
-Router.post('/update',function(req,res){
-	const userid=req.cookies.userid;
+Router.post('/update', function (req, res) {
+	const userid = req.cookies.userid;
 	/*判断是否存在cookie*/
-	if(!userid){
-		return res.json({code:1});
+	if (!userid) {
+		return res.json({code: 1});
 	}
-	const body=req.body;
-	User.findByIdAndUpdate(userid,body,function(err,doc){
+	const body = req.body;
+	User.findByIdAndUpdate(userid, body, function (err, doc) {
 		/*node里面没有添加es6的语法*/
-		const data=Object.assign({},{
-			user:doc.user,
-			type:doc.type
-		},body);
-		return res.json({code:0,data});
+		const data = Object.assign({}, {
+			user: doc.user,
+			type: doc.type
+		}, body);
+		return res.json({code: 0, data});
 	});
 
 });
 /*处理登录页*/
 Router.post('/login', function (req, res) {
 	const {user, pwd} = req.body;
-	User.findOne({user, pwd: md5Pwd(pwd)},_fileter, function (err, doc) {
+	User.findOne({user, pwd: md5Pwd(pwd)}, _fileter, function (err, doc) {
 		if (!doc) {
 			return res.json({code: 1, msg: '用户名或密码错误'});
 		}
@@ -88,17 +98,17 @@ Router.post('/register', function (req, res) {
 		if (doc) {
 			return res.json({code: 1, msg: "用户名重复"});
 		}
-		const userModal=new User({user,type,pwd:md5Pwd(pwd)});
+		const userModal = new User({user, type, pwd: md5Pwd(pwd)});
 		/*userModal.save可以返回生成后的id*/
-		userModal.save(function(e,d){
-			if(e){
-				return res.json({code:1,msg:'后端出错了'});
+		userModal.save(function (e, d) {
+			if (e) {
+				return res.json({code: 1, msg: '后端出错了'});
 			}
 			/*进行对象结构*/
-			const {user,type,_id}=d;
+			const {user, type, _id} = d;
 			/*进行写cookie*/
-			res.cookie('userid',_id);
-			return res.json({code:0,data:{user,type,_id}});
+			res.cookie('userid', _id);
+			return res.json({code: 0, data: {user, type, _id}});
 		});
 		/*进行入库user.create不能返回生成后的id*/
 		/*User.create({user, pwd: md5Pwd(pwd), type}, function (e, d) {
@@ -126,7 +136,7 @@ Router.get('/info', function (req, res) {
 	/*
 	* findByid 或者是findOne(),这里放第一个传入的参数
 	* */
-	User.findOne({_id: userid},_fileter, function (err, doc) {
+	User.findOne({_id: userid}, _fileter, function (err, doc) {
 		if (err) {
 			return res.json({code: 1, msg: '后端出错了'});
 		}
@@ -136,10 +146,12 @@ Router.get('/info', function (req, res) {
 		}
 	});
 });
+
 /*加密在两MD5进行加密*/
-function md5Pwd(pwd){
+function md5Pwd(pwd) {
 	const salt = 'welcome_come_china';
 	return utils.md5(utils.md5(pwd + salt));
 }
+
 //暴露和use相关的接口   Router.get进行的挂载的接口进行返回
 module.exports = Router;

@@ -52,7 +52,7 @@ class Register extends React.Component {
 	* 输入的时候进行设置的状态值
 	* */
 
-	/*	handChange(key, val) {
+	/*	handleChange(key, val) {
 			this.setState({
 				[key]: val      /!*这里[]防止变成字符串*!/
 			});
@@ -67,14 +67,14 @@ class Register extends React.Component {
 				<h2>注册页</h2>
 				{this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
 				<List>
-					<InputItem onChange={v => this.props.handChange('user', v)}>用户</InputItem>
-					<InputItem type='password' onChange={v => this.props.handChange('pwd', v)}>密码</InputItem>
-					<InputItem type='password' onChange={v => this.props.handChange('repeatpwd', v)}>确认密码</InputItem>
+					<InputItem onChange={v => this.props.handleChange('user', v)}>用户</InputItem>
+					<InputItem type='password' onChange={v => this.props.handleChange('pwd', v)}>密码</InputItem>
+					<InputItem type='password' onChange={v => this.props.handleChange('repeatpwd', v)}>确认密码</InputItem>
 					{/*设置处理初始状态*/}
-					<RadioItem checked={this.props.state.type == 'genius'} onChange={v => this.props.handChange('type', 'genius')}>
+					<RadioItem checked={this.props.state.type == 'genius'} onChange={v => this.props.handleChange('type', 'genius')}>
 						牛人
 					</RadioItem>
-					<RadioItem checked={this.props.state.type == 'boos'} onChange={v => this.props.handChange('type', 'boos')}>
+					<RadioItem checked={this.props.state.type == 'boos'} onChange={v => this.props.handleChange('type', 'boos')}>
 						Boos
 					</RadioItem>
 					<Button type='primary' onClick={this.handleRegiter}>注册</Button>

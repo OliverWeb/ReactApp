@@ -1,15 +1,21 @@
 import React from 'react'
-import {List, InputItem, NavBar} from 'antd-mobile'
+import {List, InputItem, NavBar, Icon} from 'antd-mobile'
+/*
+* socket.io-client 这里是socket.io的客户端
+* */
 import io from 'socket.io-client'
 import {getMegList, sendMsg, recvMsg} from '../../redux/chat.redux'
 //这里是,页面是:3000跨域的sever:9093所以这里要进行手动进行更改一下 websocket,
 import {connect} from 'react-redux'
-
+/*这里是为了解决跨域问题,协议是websocket*/
 const socket = io('ws://localhost:9093');
+/*socket.on('recvmsg',function(data){
+console.log(data);
+});*/
 
 @connect(
 	state => state,
-	{getMegList, sendMsg, recvMsg}
+	{getMegList,sendMsg, recvMsg}
 )
 class Chat extends React.Component {
 	constructor(props) {
@@ -34,7 +40,7 @@ class Chat extends React.Component {
 	}
 
 	handleSubmit() {
-		// socket.emit('sendmsg', {text: this.state.text});
+		// 这里的emit是发送到后端socket.emit('sendmsg', {text: this.state.text});
 		// console.log(this.state);
 		const from = this.props.user._id;
 		const to = this.props.match.params.user;
@@ -44,32 +50,43 @@ class Chat extends React.Component {
 	}
 
 	render() {
-		const userid = this.props.match.params.user;
 		const Item = List.Item;
-		const users=this.props.chat.users;
-		if(!users[userid]){
+		const userid = this.props.match.params.user;
+		const users = this.props.chat.users;
+		if (!users[userid]) {
 			return null;
 		}
 		return (
 			<div id='chat-page'>
-				<NavBar mode='dark'>
+				<NavBar
+					mode='dark'
+					icon={<Icon type="left"/>}
+					onLeftClick={() => {
+						this.props.history.goBack();
+					}}
+				>
 					{users[userid].name}
 				</NavBar>
 				{this.props.chat.chatmsg.map(v => {
+					const avatar = require(`../img/${users[v.from].avatar}.png`);
 					return v.from === userid ? (
 						<List key={v._id}>
-							<Item>{v.content}</Item>
+							<Item
+								thumb={avatar}
+							>{v.content}</Item>
 						</List>
 					) : (
 						<List key={v._id}>
-							<Item extra={'avatar'} className='chat-me'>{v.content}</Item>
+							<Item
+								extra={<img src={avatar}/>}
+								className='chat-me'>{v.content}</Item>
 						</List>
 					)
 				})}
 				<div className="stick-footer">
 					<List>
 						<InputItem
-							pacehol='请输入'
+							placeholder='请输入内容......'
 							value={this.state.text}
 							onChange={v => {
 								this.setState({text: v})

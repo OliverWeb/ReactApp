@@ -14,13 +14,8 @@ const express = require('express');
 * */
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
-
-
 const model = require('./model');
 const Chat = model.getModel('chat');
-
-
 /**
  * 双向数据进行传递数据
  * socket.io和http进行配合
@@ -32,20 +27,24 @@ const server = require('http').Server(app);
 * 仅仅是是为了的socket.io监听端口的这里的socket.io就可以
 * */
 const io = require('socket.io')(server);
-/*这里的io属于全局请求,下面的socket 属于这一次的请求*/
+/*
+*1:这里的io属于全局请求,下面的socket 属于这一次的请求
+*2:io.on:这里是监听某个事件,(1):connection进行确认是否进行了连接
+*这里socket就是当前connection连接的socket
+* 这里的io是全局的连接
+* */
 io.on('connection', function (socket) {
-	//这里socket就是这次链接的打印的socket
+	//这里监听前端socket.emit('sendmsg',funciton(){})触发发送的事件
 	socket.on('sendmsg', function (data) {
-		/*将这次事件广播到全局*/
-		// io.emit('recvmsg',data);
+		console.log(data);
 		const {from, to, msg} = data;
-		const chatid=[from,to].sort().join('_');
-		Chat.create({chatid,from,to,content:msg},function(err,doc){
-			io.emit('recvmsg',Object.assign({},doc._doc));
+		const chatid = [from, to].sort().join('_');
+		Chat.create({chatid, from, to, content: msg}, function (err, doc) {
+			/*io和socket的区别,一个是全局事件,一个是局部事件,将这次事件广播到全局,每个人都是接受的状态*/
+			io.emit('recvmsg', Object.assign({}, doc._doc));
 		});
 	});
 });
-
 //将暴露接口返回数据进行引入
 const userRouter = require('./user');
 

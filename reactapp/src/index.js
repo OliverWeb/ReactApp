@@ -57,6 +57,11 @@ ReactDom.render(
 					<Route path='/geniusinfo' component={GeniusInfo}/>
 					<Route path='/login' component={Login}/>
 					<Route path='/register' component={Register}/>
+					{/*
+					 *这里添加参数,是确定和谁进行聊天
+					 * 跳转,进行参数传递:this.props.history.push(`/chat/${v._id}`);
+					 * 获取参数:const userid = this.props.match.params.user;
+					 * */}
 					<Route path='/chat/:user' component={Chat}/>
 					<Route component={Dashboard}/>
 				</Switch>

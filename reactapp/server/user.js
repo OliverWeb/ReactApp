@@ -34,6 +34,11 @@ Router.get('/list', function (req, res) {
 	});
 });
 Router.get('/getmsglist', function (req, res) {
+	// Chat.remove({},function (err,doc) {});
+	/*
+	*把所有的的用户的进行查找出来
+	*2.将其转化成一个对象
+	* */
 	const user = req.cookies.userid;
 	User.find({}, function (e, userdoc) {
 		let users = {};
@@ -41,11 +46,13 @@ Router.get('/getmsglist', function (req, res) {
 			users[v._id] = {name: v.user, avatar: v.avatar}
 		});
 		/*
-		* 过滤条件使用$or,from,to:发送出去的信息,和发送给我的信息都查出来
+		* 1.过滤条件使用$or,from,to:发送出去的信息,和发送给我的信息都查出来
+		*
 		* */
-		Chat.find({'$or':[{from:user,to:user}]}, function (err, doc) {
+		Chat.find({'$or': [{from: user}, {to: user}]}, function (err, doc) {
+			console.log(doc);
 			if (!err) {
-				return res.json({code: 0, msgs: doc,users:users});
+				return res.json({code: 0, msgs: doc, users: users});
 			}
 		});
 	});

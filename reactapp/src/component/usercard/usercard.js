@@ -1,5 +1,5 @@
 /*
-* 不是路由组件不能进行获取
+* 不是路由组件不能进行获取,需要利用withRouter,进行处理
 * */
 import React from 'react'
 import ProTypes from 'prop-types'
@@ -11,7 +11,7 @@ class UserCard extends React.Component {
 		userList: ProTypes.array.isRequired
 	};
 	handleClick(v){
-		/*跳转需要利用Withrouter*/
+		/*跳转需要利用Withrouter,这里的跳转进行添加参数*/
 		this.props.history.push(`/chat/${v._id}`);
 	}
 	render() {

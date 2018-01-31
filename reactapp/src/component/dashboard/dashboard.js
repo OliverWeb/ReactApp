@@ -12,22 +12,20 @@ import NavLinkBar from '../navlink/navlink'
 import Boos from '../boos/boos'
 import Genius from '../genius/genius'
 import User from '../user/user'
-import {getMegList,recvMsg} from '../../redux/chat.redux'
-
-
-function Msg() {
-	return <h2>消息列表</h2>
-}
+import Msg from '../msg/msg'
+import {getMegList, recvMsg} from '../../redux/chat.redux'
 
 @connect(
 	state => state,
-	{getMegList,recvMsg}
+	{getMegList, recvMsg}
 )
 class Dashboard extends React.Component {
 	componentDidMount() {
-		/*进入dashboard的时候就要获取用户的列表*/
-		this.props.getMegList();
-		this.props.recvMsg();
+		/*进入dashboard的时候就要获取用户的列表,进行切换的时候重复获取*/
+		if (!this.props.chat.chatmsg.length) {
+			this.props.getMegList();
+			this.props.recvMsg();
+		}
 	}
 
 	render() {

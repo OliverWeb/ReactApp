@@ -4,7 +4,7 @@ import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 * socket.io-client 这里是socket.io的客户端
 * */
 import io from 'socket.io-client'
-import {getMegList, sendMsg, recvMsg,readMsg} from '../../redux/chat.redux'
+import {getMegList, sendMsg, recvMsg, readMsg} from '../../redux/chat.redux'
 //这里是,页面是:3000跨域的sever:9093所以这里要进行手动进行更改一下 websocket,
 import {connect} from 'react-redux'
 import {getChatId} from "../../util";
@@ -17,7 +17,7 @@ console.log(data);
 
 @connect(
 	state => state,
-	{getMegList, sendMsg, recvMsg,readMsg}
+	{getMegList, sendMsg, recvMsg, readMsg}
 )
 class Chat extends React.Component {
 	constructor(props) {
@@ -34,15 +34,20 @@ class Chat extends React.Component {
 			this.props.getMegList();
 			this.props.recvMsg();
 		}
-		const to=this.props.match.params.user;
-		this.props.readMsg(to);
+
+
 		/*socket.on('recvmsg', (data)=>{
 			this.setState({
 				msg:[...this.state.msg,data.text]
 			});
 		});*/
 		//这里手动进行派发事件
+	}
 
+	//组件被移除,被隐藏的时候进行触发的
+	componentWillUnmount() {
+		const to = this.props.match.params.user;
+		this.props.readMsg(to);
 	}
 
 	fixCarousel() {

@@ -45,6 +45,7 @@ import Auth from './Auth'
 /*利用config.js文件,对axios.interceptors进行拦截请求,处理公共的loading事件*/
 import './config'
 import 'antd-mobile/dist/antd-mobile.css';
+import DemoShouldComponentUpdate from './demoShouldComponentUpdate'
 /*对插件进行监控*/
 /*
 * 这里createStore(reducer);   是创建的操作函数的
@@ -52,6 +53,15 @@ import 'antd-mobile/dist/antd-mobile.css';
 *
 *
 * */
+
+ReactDom.render(<DemoShouldComponentUpdate></DemoShouldComponentUpdate>,document.getElementById('root'));
+
+
+
+
+
+
+
 const store = createStore(reducers, compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f

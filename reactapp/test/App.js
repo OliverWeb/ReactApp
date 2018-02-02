@@ -9,6 +9,16 @@ import {addGun, removeGun, addGunAsync} from './index.redux'
 	//用的方法放到props,自动进行dispatch,action可以进行解决
 	{addGun, removeGun, addGunAsync}
 )
+
+	/*
+	App=connect(
+		state => ({num: state.count}),
+		{addGun, removeGun, addGunAsync}
+	)(App)
+	*connect的装饰器的写法
+	* 这里是connect是一个高阶组件,它接受一个App组件返回另一个组件
+	* */
+
 class App extends React.Component {
 	render() {
 		return (
@@ -21,4 +31,5 @@ class App extends React.Component {
 		)
 	}
 }
+
 export default App

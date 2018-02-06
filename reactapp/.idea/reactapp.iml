@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>
     <content url="file://$MODULE_DIR$/demo/src" />
+    <content url="file://$MODULE_DIR$/../阶段二" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="express" level="application" />

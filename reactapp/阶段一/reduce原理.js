@@ -1,4 +1,4 @@
-import {createStore} from 'test/index.redux'
+import {createStore} from '阶段一/01.learn.redux'
 //根据老的state和action生成新的state,代码的库的事件
 //createStore();函数库
 function couter(state = 0, action) {

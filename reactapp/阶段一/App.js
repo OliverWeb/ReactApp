@@ -1,7 +1,7 @@
 import React from 'react';
 //负责从外部获取组件需要的参数,用户连接用的
 import {connect} from 'react-redux'
-import {addGun, removeGun, addGunAsync} from './index.redux'
+import {addGun, removeGun, addGunAsync} from './01.learn.redux'
 
 @connect(
 	//要什么属性放到props,reducer.js 利用combineReducers将多个组件合并的

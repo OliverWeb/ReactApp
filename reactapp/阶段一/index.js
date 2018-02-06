@@ -56,19 +56,17 @@ import DemoShouldComponentUpdate from './demoShouldComponentUpdate'
 
 ReactDom.render(<DemoShouldComponentUpdate></DemoShouldComponentUpdate>,document.getElementById('root'));
 
-
-
-
-
-
-
+/*
+* compose是进行整合函数,这里是整合多个中间件
+* 2.const store=createStore(reducers,applyMiddleware(thunk));
+* */
 const store = createStore(reducers, compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
-/* todo 入口文件   包裹整个app  */
+/* todo 入口文件   包裹整个app //这里仅仅传store即可,将react和redux进行连接 */
 ReactDom.render(
-	(<Provider store={store}> //这里仅仅传store即可,将react和redux进行连接
+	(<Provider store={store}>
 		<BrowserRouter>
 			{/*switch只渲染第一个命中的Route,不去加载第二组组件*/}
 			<Switch>

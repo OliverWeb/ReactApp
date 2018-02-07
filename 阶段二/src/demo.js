@@ -43,4 +43,5 @@ export default Demo
 * 多个更新的setState进行更新状态的,render仅仅执行一次render
 * 尽量不要在render进行setState,除非shouldComponentUpdate进行的定制,来控制render的执行;
 *
+*
 * */

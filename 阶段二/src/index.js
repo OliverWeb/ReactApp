@@ -5,8 +5,11 @@ import thunk from 'redux-thunk'
 import { counter } from './index.redux'
 import { Provider } from 'react-redux';
 import App from './App'
-import Demo from "./demo";
-ReactDOM.render(<Demo/>,document.getElementById('root'));
+import './01.learn.redux'
+import Page from './context.demo'
+// import Demo from "./demo";
+ReactDOM.render(<Page/>,document.getElementById('root'));
+
 /*const store = createStore(counter, compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f

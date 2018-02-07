@@ -20,4 +20,10 @@ class App extends React.Component{
     ) 
   }
 }
+
+/*App=connect(
+  state=>({num:state}),
+  {addGun,removeGun,addGunAsyns}
+)(App)*/
+
 export default App;

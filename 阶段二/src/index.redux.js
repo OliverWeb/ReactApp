@@ -1,7 +1,6 @@
 
-
-const ADD_GUN = '加机关枪'
-const REMOVE_GUN = '减机关枪'
+const ADD_GUN = '加机关枪';
+const REMOVE_GUN = '减机关枪';
 // 这就是reducer处理函数，参数是状态和新的action
 export function counter(state=0, action) {
   // let state = state||0
@@ -19,6 +18,9 @@ export function addGun(){
 }
 export function removeGun(){
   return { type: REMOVE_GUN }
+}
+export function addTwice(){
+  return [{type:ADD_GUN},{type:ADD_GUN}]
 }
 // 延迟添加，拖两天再给
 export function addGunAsync(){

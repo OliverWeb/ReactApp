@@ -43,7 +43,7 @@ export function createStore(reducer,enhancer) {
 * createStore(reducer,applyMiddleware),
 * createStore(reducer,enhancer);
 * */
-export function applyMiddleware(middleware){
+export function applyMiddleware01(middleware){
 	return createStore=>(...args)=>{
 		const store=createStore(...args);
 		let dispatch=store.dispatch;

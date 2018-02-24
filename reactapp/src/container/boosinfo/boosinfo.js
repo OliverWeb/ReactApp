@@ -9,9 +9,6 @@ import {
 	NavBar,
 	InputItem,
 	TextareaItem,
-	List,
-	WingBlank,
-	WhiteSpace,
 	Button
 } from 'antd-mobile'
 import {connect} from 'react-redux'

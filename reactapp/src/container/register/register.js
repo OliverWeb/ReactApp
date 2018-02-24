@@ -7,7 +7,7 @@
 import React from 'react'
 import Logo from '../../component/logo/logo'
 /*例如UI框架*/
-import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from 'antd-mobile'
+import {List, InputItem, Radio, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
 /*利用路由进行跳转*/
 import {Redirect} from 'react-router-dom'

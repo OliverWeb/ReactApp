@@ -16,6 +16,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const model = require('./model');
 const Chat = model.getModel('chat');
+//这里是解决相对路径问题
+const path=require('path');
 /**
  * 双向数据进行传递数据
  * socket.io和http进行配合
@@ -64,6 +66,13 @@ app.use(bodyParser.json());
 * 这里的子路由是由userRouter进行定义的
 * */
 app.use('/user', userRouter);
+app.use(function (req,res,next) {
+	if(req.url.startsWith('/user/')||req.url.startsWith('/static/')){
+		return next()
+	}
+	return res.sendFile(path.resolve('build/index.html'))
+});
+app.use('/',express.static(path.resolve('build')));
 
 server.listen(9093, function () {
 	console.log(`端口号是:9093`);

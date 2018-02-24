@@ -3,13 +3,14 @@ import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 /*
 * socket.io-client 这里是socket.io的客户端
 * */
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import {getMegList, sendMsg, recvMsg, readMsg} from '../../redux/chat.redux'
 //这里是,页面是:3000跨域的sever:9093所以这里要进行手动进行更改一下 websocket,
 import {connect} from 'react-redux'
 import {getChatId} from "../../util";
+import QueueAnim from 'rc-queue-anim'
 /*这里是为了解决跨域问题,协议是websocket*/
-const socket = io('ws://localhost:9093');
+// const socket = io('ws://localhost:9093');
 
 /*socket.on('recvmsg',function(data){
 console.log(data);
@@ -94,22 +95,25 @@ class Chat extends React.Component {
 				>
 					{users[userid].name}
 				</NavBar>
-				{chatmsgs.map(v => {
-					const avatar = require(`../img/${users[v.from].avatar}.png`);
-					return v.from === userid ? (
-						<List key={v._id}>
-							<Item
-								thumb={avatar}
-							>{v.content}</Item>
-						</List>
-					) : (
-						<List key={v._id}>
-							<Item
-								extra={<img src={avatar}/>}
-								className='chat-me'>{v.content}</Item>
-						</List>
-					)
-				})}
+
+				<QueueAnim type='left' delay={100}>
+					{chatmsgs.map(v => {
+						const avatar = require(`../img/${users[v.from].avatar}.png`);
+						return v.from === userid ? (
+							<List key={v._id}>
+								<Item
+									thumb={avatar}
+								>{v.content}</Item>
+							</List>
+						) : (
+							<List key={v._id}>
+								<Item
+									extra={<img src={avatar} alt=""/>}
+									className='chat-me'>{v.content}</Item>
+							</List>
+						)
+					})}
+				</QueueAnim>
 				<div className="stick-footer">
 					<List>
 						<InputItem
